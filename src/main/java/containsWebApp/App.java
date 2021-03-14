@@ -40,7 +40,7 @@ public class App {
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello, World!");
+        get("/", (req, res) -> "check github.com/bahadircakir for best apps");
 
         post("/compute", 
             (req, res) -> {
@@ -76,7 +76,7 @@ public class App {
         get("/compute",
             (rq, rs) -> {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("result", "not computed yet! (LeftBOX: Give an integer list with newline char - RightBOX: Give a 2 indexes for subarray then give a integer value to search with newline char)");
+                map.put("result", "not computed yet! 1.BOX: Give integer numbers(array) with newline char 2.BOX: Give a start index 3.BOX: Give a stop index 4.BOX: Give the value to check whether exists");
                 return new ModelAndView(map, "compute.mustache");
             },
             new MustacheTemplateEngine()
