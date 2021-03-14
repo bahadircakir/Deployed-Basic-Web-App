@@ -3,24 +3,97 @@
  */
 package containsWebApp;
 
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
+
 
 public class App {
-   /* public String getGreeting() {
-        return "Hello world.";
-    }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }*/
+    public static boolean searchOnSubArray(ArrayList<Integer> array, int startIndex, int stopIndex, Integer value) {
+        if (array == null || array.size() == 0) 
+            return false;
 
-    public static boolean search(ArrayList<Integer> array, int e) {
-        System.out.println("inside search");
-        if (array == null) return false;
-  
+        startIndex -= 1;
+        stopIndex -= 1;
+
+        if(startIndex < 0 || stopIndex > array.size()-1) 
+            return false;
+
+        int count = 0;
         for (int elt : array) {
-          if (elt == e) return true;
+            if (count <= stopIndex && count >= startIndex) {
+                if (elt == value) return true;
+            }
+            count++;
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> "Hello, World!");
+
+        post("/compute", 
+            (req, res) -> {
+                String input1 = req.queryParams("input1");
+                java.util.Scanner sc1 = new java.util.Scanner(input1);
+                sc1.useDelimiter("[;\r\n]+");
+                java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+                while (sc1.hasNext()) {
+                    int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+                    inputList.add(value);
+                }
+                sc1.close();
+
+                String input2 = req.queryParams("input2");
+                java.util.Scanner sc2 = new java.util.Scanner(input2);
+                sc2.useDelimiter("[;\r\n]+");
+                java.util.ArrayList<Integer> input2List = new java.util.ArrayList<>();
+                while (sc2.hasNext()) {
+                    int value = Integer.parseInt(sc2.next().replaceAll("\\s",""));
+                    input2List.add(value);
+                }
+                sc2.close();
+                
+
+
+
+                boolean result = App.searchOnSubArray(inputList, input2List.get(0), input2List.get(1), input2List.get(2));
+
+                Map<String, Boolean> map = new HashMap<String, Boolean>();
+                map.put("result", result);
+                return new ModelAndView(map, "compute.mustache");
+            }, 
+            new MustacheTemplateEngine()
+        );
+
+
+        get("/compute",
+            (rq, rs) -> {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("result", "not computed yet!");
+                return new ModelAndView(map, "compute.mustache");
+            },
+            new MustacheTemplateEngine()
+        );
+    }
+
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; 
+    }
+
 }

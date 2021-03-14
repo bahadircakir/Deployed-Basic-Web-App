@@ -10,29 +10,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class AppTest {
-   /* @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }*/
-    @Test void testFound() {
+
+    @Test void test_foundOnSubArray() {
         ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-        assertTrue(App.search(array, 4));
+        assertTrue(App.searchOnSubArray(array, 2, 3, 2));
     }
 
-    @Test void testNotFound() {
-        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-        assertFalse(App.search(array, 5));
+    @Test void test_notFoundOnSubArray() {
+        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        assertFalse(App.searchOnSubArray(array, 1, 4, 7));
     }
 
-    @Test void testEmptyArray() {
+    @Test void test_emptyArray() {
         ArrayList<Integer> array = new ArrayList<>();
-        assertFalse(App.search(array, 1));
+        assertFalse(App.searchOnSubArray(array, 1, 5, 2));
     }
 
-    @Test void testNull() {
-        assertFalse(App.search(null, 1));
+    @Test void test_nullArray() {
+        assertFalse(App.searchOnSubArray(null, 1, 5, 2));
     }
 
+    @Test void test_falseIndexForSubArray() {
+        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        assertFalse(App.searchOnSubArray(array, 0, 5, 2)); 
+
+        assertFalse(App.searchOnSubArray(array, 1, 8, 2));
+    }
 
 
 }
