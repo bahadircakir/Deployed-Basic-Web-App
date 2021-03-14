@@ -54,20 +54,16 @@ public class App {
                 }
                 sc1.close();
 
-                String input2 = req.queryParams("input2");
-                java.util.Scanner sc2 = new java.util.Scanner(input2);
-                sc2.useDelimiter("[;\r\n]+");
-                java.util.ArrayList<Integer> input2List = new java.util.ArrayList<>();
-                while (sc2.hasNext()) {
-                    int value = Integer.parseInt(sc2.next().replaceAll("\\s",""));
-                    input2List.add(value);
-                }
-                sc2.close();
+                String input2 = req.queryParams("input2").replaceAll("\\s","");
+                int input2AsInt = Integer.parseInt(input2);
+                String input3 = req.queryParams("input3").replaceAll("\\s","");
+                int input3AsInt = Integer.parseInt(input3);
+                String input4 = req.queryParams("input4").replaceAll("\\s","");
+                int input4AsInt = Integer.parseInt(input4);
+
                 
 
-
-
-                boolean result = App.searchOnSubArray(inputList, input2List.get(0), input2List.get(1), input2List.get(2));
+                boolean result = App.searchOnSubArray(inputList, input2AsInt, input3AsInt, input4AsInt);
 
                 Map<String, Boolean> map = new HashMap<String, Boolean>();
                 map.put("result", result);
