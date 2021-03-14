@@ -76,7 +76,7 @@ public class App {
         get("/compute",
             (rq, rs) -> {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("result", "not computed yet! 1.BOX: Give integer numbers(array) with newline char 2.BOX: Give a start index 3.BOX: Give a stop index 4.BOX: Give the value to check whether exists");
+                map.put("result", "not computed yet!");
                 return new ModelAndView(map, "compute.mustache");
             },
             new MustacheTemplateEngine()
