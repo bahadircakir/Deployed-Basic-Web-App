@@ -80,7 +80,7 @@ public class App {
         get("/compute",
             (rq, rs) -> {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("result", "not computed yet!");
+                map.put("result", "not computed yet! (Give a list to left box - Give a 2 indexes for subarray then give a value to search to right box)");
                 return new ModelAndView(map, "compute.mustache");
             },
             new MustacheTemplateEngine()
