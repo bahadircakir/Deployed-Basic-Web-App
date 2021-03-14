@@ -37,5 +37,10 @@ class AppTest {
         assertFalse(App.searchOnSubArray(array, 1, 8, 2));
     }
 
+    @Test void test_startIndexIsBiggerThanStopIndex() {
+        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        assertFalse(App.searchOnSubArray(array, 7, 4, 5)); 
+    }
+
 
 }

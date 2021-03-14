@@ -24,7 +24,7 @@ public class App {
         startIndex -= 1;
         stopIndex -= 1;
 
-        if(startIndex < 0 || stopIndex > array.size()-1) 
+        if(startIndex < 0 || stopIndex > array.size()-1 || startIndex > stopIndex) 
             return false;
 
         int count = 0;
